@@ -3,23 +3,23 @@
 [![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat&logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Hardhat](https://img.shields.io/badge/Hardhat-3.0+-FFDB1C?style=flat)](https://hardhat.org/)
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.28-363636?style=flat&logo=solidity)](https://soliditylang.org/)
+[![Solidity](https://img.shields.io/badge/Solidity-0.8.20-363636?style=flat&logo=solidity)](https://soliditylang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## 🌟 项目亮点
+## 🌟 项目概述
 
-### ✨ 核心功能
-- **🖼️ 数字艺术品铸造** - 一键将数字作品转换为独一无二的NFT
-- **🏪 去中心化交易市场** - 点对点的NFT买卖平台
-- **🔐 安全存储方案** - 集成IPFS和Arweave双重去中心化存储
-- **💳 多链钱包支持** - 支持MetaMask等主流Web3钱包
-- **⚡ 高性能架构** - 基于Vite的极速开发体验
+### 核心功能
+- **🖼️ 数字艺术品铸造** - 将数字作品转换为NFT
+- **🏪 NFT交易市场** - 点对点的NFT买卖平台
+- **🔐 去中心化存储** - 集成IPFS和Arweave存储方案
+- **💳 Web3钱包集成** - 支持MetaMask等主流钱包
+- **⚡ 现代化架构** - 基于Vite的开发体验
 
-### 🚀 技术特色
-- **现代化技术栈** - React 18 + TypeScript + Vite
-- **企业级智能合约** - OpenZeppelin安全标准，Solidity 0.8.28
-- **双存储架构** - IPFS + Arweave确保数据永久保存
-- **完整开发生态** - Hardhat 3 Beta测试框架，自动化部署流程
+### 技术特色
+- **技术栈** - React 18 + TypeScript + Vite
+- **智能合约** - OpenZeppelin标准，Solidity 0.8.20
+- **存储方案** - IPFS + Arweave双存储架构
+- **开发框架** - Hardhat 3.0，自动化部署流程
 
 ## 🏗️ 系统架构
 
@@ -54,21 +54,34 @@
 - npm ≥ 9.0.0
 - MetaMask浏览器插件
 - Git
+- IPFS本地节点 (可选，用于文件存储)
+- Arweave本地节点 (可选，用于永久存储)
 
 ### 安装部署
 
-1. **克隆项目**
+#### 1. 克隆项目
 ```bash
-git clone https://github.com/yourusername/artist-nft.git
+git clone https://github.com/ciphermagic/artist-nft.git
 cd artist-nft
 ```
 
-2. **安装依赖**
+#### 2. 安装依赖
 ```bash
 npm install
 ```
 
-3. **启动本地开发环境**
+#### 3. 配置存储节点（可选）
+```bash
+# 安装并启动IPFS
+npm install -g ipfs
+ipfs init
+ipfs daemon
+
+# 验证IPFS状态
+curl http://127.0.0.1:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
+```
+
+#### 4. 启动本地开发环境
 ```bash
 # 启动Hardhat本地区块链
 npx hardhat node
@@ -83,7 +96,7 @@ npm run deploy
 npm run dev
 ```
 
-4. **访问应用**
+#### 5. 访问应用
 - 前端地址: http://localhost:5173
 - 区块链RPC: http://localhost:8545
 
@@ -150,8 +163,9 @@ artist-nft/
 │   ├── ArtistNFT.ts    # NFT合约测试
 │   └── Lock.ts         # 锁合约测试
 ├── scripts/            # 部署脚本
-├── ignition/           # Hardhat Ignition部署模块
-└── cache/              # 编译缓存
+├── cache/              # 编译缓存
+├── dist/               # 构建输出目录
+└── node_modules/       # 项目依赖
 ```
 
 ## 🔧 配置说明
@@ -189,6 +203,48 @@ artist-nft/
 - ✅ 完整的测试覆盖确保代码质量
 - ✅ 去中心化存储确保数据安全
 - ✅ 前端交互经过安全审计
+
+## 🛠️ 常见问题
+
+### MetaMask连接失败
+**问题**: 无法连接到本地网络
+**解决**:
+1. 检查Hardhat节点是否运行：`npx hardhat node`
+2. 添加网络配置：RPC URL `http://127.0.0.1:8545`，Chain ID `0x7A69`
+3. 清除浏览器缓存后重试
+
+### IPFS文件上传失败
+**问题**: 文件无法上传到IPFS
+**解决**:
+1. 检查IPFS守护进程：`ipfs daemon`
+2. 验证IPFS状态：`curl http://127.0.0.1:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme`
+3. 检查防火墙设置，确保端口8080开放
+
+### 端口被占用
+**问题**: 8545端口已被占用
+**解决**:
+```bash
+# Mac/Linux
+lsof -ti:8545 | xargs kill -9
+
+# Windows
+netstat -ano | findstr :8545
+taskkill /PID <进程ID> /F
+```
+
+### 合约部署失败
+**问题**: 部署合约时超时
+**解决**:
+1. 检查网络连接状态
+2. 确认账户有足够ETH（本地网络会自动分配）
+3. 重启Hardhat节点后重试
+
+### 依赖安装失败
+**问题**: npm install报错
+**解决**:
+1. 清除npm缓存：`npm cache clean --force`
+2. 删除node_modules后重试：`rm -rf node_modules && npm install`
+3. 检查Node.js版本是否符合要求（≥18.0.0）
 
 ## 📄 许可证
 
