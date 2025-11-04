@@ -1,0 +1,51 @@
+{
+  "name": "artist-nft",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "htest": "npx hardhat test",
+    "deploy": "npx hardhat run ./scripts/deploy.ts --network localhost",
+    "compile": "npx hardhat compile"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
+    "antd": "^5.27.3",
+    "arweave": "^1.15.7",
+    "arweave-wallet-connector": "^1.0.2",
+    "axios": "^1.12.2",
+    "ipfs-http-client": "^60.0.1",
+    "jodit-react": "^5.2.29",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-notifications-component": "^4.0.1",
+    "react-router-dom": "^6.4.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.0",
+    "@types/chai": "^4.3.20",
+    "@types/chai-as-promised": "^8.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.18.4",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "chai": "^5.3.3",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "ethers": "^6.15.0",
+    "forge-std": "github:foundry-rs/forge-std#v1.9.4",
+    "globals": "^16.3.0",
+    "hardhat": "^3.0.6",
+    "mocha": "^11.7.2",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
+  }
+}
