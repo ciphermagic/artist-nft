@@ -16,3 +16,10 @@ export type NftMeta = {
   uri: string;
   type: string;
 };
+
+export type Scratch = {
+  key: number;
+  index: number;
+  title: string;
+  content: string;
+};

@@ -2,13 +2,7 @@ import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { articles as getArticles, getArticle, removeArticle } from '../../service/storage-service';
 import { useNavigate } from 'react-router-dom';
-
-interface Scratch {
-  key: number;
-  index: number;
-  title: string;
-  content: string;
-}
+import type { Scratch } from '../../service/types.ts';
 
 function ArticleScratch() {
   const navigate = useNavigate();
