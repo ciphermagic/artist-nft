@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import { useEffect, useState } from 'react';
-import { articles as getArticles, getArticle, removeArticle } from '../../service/storage-service';
+import { articles as getArticles, getArticle, removeArticle } from '../../service/local-service';
 import { useNavigate } from 'react-router-dom';
 import type { Scratch } from '../../service/types.ts';
 

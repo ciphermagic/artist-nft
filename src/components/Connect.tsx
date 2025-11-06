@@ -7,7 +7,7 @@ function Connect() {
   };
   return (
     <div>
-      <a onClick={connectWallet}>connect</a>
+      <a onClick={connectWallet}>连接钱包</a>
     </div>
   );
 }

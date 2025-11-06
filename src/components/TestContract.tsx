@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ethers, JsonRpcProvider } from 'ethers';
 import { Lock__factory } from '../typechain-types';
 
-function Test() {
+function TestContract() {
   // 状态管理
   const [address, setAddress] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState<string>('');
@@ -102,22 +102,27 @@ function Test() {
   }, []);
 
   return (
-    <div className='App'>
+    <div>
       <h1>Lock 合约交互</h1>
-      <button onClick={connectWallet} disabled={isConnected}>
-        {isConnected ? '已连接' : '连接钱包'}
-      </button>
-      {address && <p>地址: {address}</p>}
-      <button onClick={readMessage} disabled={!isConnected}>
-        读取消息
-      </button>
-      <button onClick={setMessage} disabled={!isConnected}>
-        设置消息
-      </button>
-      <input ref={inputRef} type='text' placeholder='输入新消息' disabled={!isConnected} />
-      {newMessage && <p>当前消息: {newMessage}</p>}
+      <p>合约地址：{contractAddress}</p>
+      <p>
+        <button onClick={connectWallet} disabled={isConnected}>
+          {isConnected ? '已连接' : '连接钱包'}
+        </button>
+        <span style={{ marginLeft: '10px' }}>钱包地址: {address}</span>
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', maxWidth: '500px' }}>
+        <button onClick={readMessage} disabled={!isConnected}>
+          读取消息
+        </button>
+        <button onClick={setMessage} disabled={!isConnected}>
+          设置消息
+        </button>
+        <input ref={inputRef} type='text' placeholder='输入新消息' disabled={!isConnected} />
+        {newMessage && <p>当前消息: {newMessage}</p>}
+      </div>
     </div>
   );
 }
 
-export default Test;
+export default TestContract;

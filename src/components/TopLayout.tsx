@@ -4,8 +4,8 @@ import Home from './Home';
 import Connect from './Connect';
 import NftMarket from './NftMarket';
 import Personal from './Personal';
-import Test from './Test';
-import ConnectIpfs from './ConnectIpfs';
+import TestContract from './TestContract.tsx';
+import TestStorage from './TestStorage.tsx';
 
 const { Header } = Layout;
 
@@ -26,19 +26,19 @@ const menuItems = [
     path: '/personal',
   },
   {
-    key: 'test',
-    label: '测试',
-    path: '/test',
-  },
-  {
     key: 'connect',
-    label: 'Connect',
+    label: '连接钱包',
     path: '',
   },
   {
-    key: 'connect-ipfs',
-    label: 'ConnectIpfs',
-    path: '',
+    key: 'test-contract',
+    label: '测试合约',
+    path: '/test-contract',
+  },
+  {
+    key: 'test-storage',
+    label: '测试存储',
+    path: '/test-storage',
   },
 ];
 
@@ -51,13 +51,7 @@ export default function TopLayout() {
           mode='horizontal'
           items={menuItems.map(item => ({
             key: item.key,
-            label: item.path ? (
-              <Link to={item.path}>{item.label}</Link>
-            ) : item.key === 'connect' ? (
-              <Connect />
-            ) : (
-              <ConnectIpfs />
-            ),
+            label: item.path ? <Link to={item.path}>{item.label}</Link> : <Connect />,
           }))}
         />
       </Header>
@@ -66,7 +60,8 @@ export default function TopLayout() {
           <Route path='/*' element={<Home />} />
           <Route path='/nft-market/*' element={<NftMarket />} />
           <Route path='/personal/*' element={<Personal />} />
-          <Route path='/test/*' element={<Test />} />
+          <Route path='/test-contract/*' element={<TestContract />} />
+          <Route path='/test-storage/*' element={<TestStorage />} />
         </Routes>
       </div>
     </Layout>

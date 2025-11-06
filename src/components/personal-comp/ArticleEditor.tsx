@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { Layout, Button, Space, Input } from 'antd';
-import { saveArticle } from '../../service/storage-service';
+import { saveArticle } from '../../service/local-service';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { messageBox } from '../../service/message-service.ts';
-import { addToIpfs } from '../../service/ipfs-service.ts';
+import { storeArticle, storeMeta } from '../../service/storage-service.ts';
 import type { NftMeta } from '../../service/types.ts';
 import { mintNft } from '../../service/nft-service.ts';
 
@@ -49,14 +49,13 @@ function JordiEditor() {
   }
 
   const storageContent = async (content: string) => {
-    return await addToIpfs(content);
+    return await storeArticle(content);
   };
 
   const mintArticle = async () => {
     const uri = await storageContent(content);
     const data: NftMeta = { name: title, description: title, imageUri: '', uri: uri, type: 'article' };
-    const json = JSON.stringify(data);
-    const metaUri = await addToIpfs(json);
+    const metaUri = await storeMeta(data);
     const { success } = await mintNft(metaUri);
     if (success) {
       navigate('/personal/article-browse');

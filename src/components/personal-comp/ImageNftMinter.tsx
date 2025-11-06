@@ -1,7 +1,7 @@
 import { type ChangeEvent, useState } from 'react';
 import type { NftMeta } from '../../service/types';
 import { messageBox } from '../../service/message-service';
-import { addToIpfs } from '../../service/ipfs-service';
+import { storeNftImage, storeMeta } from '../../service/storage-service';
 import styles from './NftMintor.module.css';
 import { Button, Input } from 'antd';
 import { mintNft } from '../../service/nft-service.ts';
@@ -14,8 +14,8 @@ function ImageNftMinter() {
 
   const store = async (file: File) => {
     try {
-      const imageUri = await addToIpfs(file);
-      await messageBox('success', '', imageUri);
+      const imageUri = await storeNftImage(file);
+      await messageBox('success', '上传图片成功', imageUri);
       setUri(imageUri);
     } catch (error) {
       if (error instanceof Error) {
@@ -27,9 +27,8 @@ function ImageNftMinter() {
   const mint = async () => {
     try {
       const data: NftMeta = { ...meta, imageUri: uri, type: 'image' };
-      const json = JSON.stringify(data);
-      const metaUri = await addToIpfs(json);
-      await messageBox('success', '', metaUri);
+      const metaUri = await storeMeta(data);
+      await messageBox('success', '保存元数据成功', metaUri);
       const { success } = await mintNft(metaUri);
       if (success) {
         navigate('/personal/collectible-browse');
