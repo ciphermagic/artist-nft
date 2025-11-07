@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   PoundOutlined,
   FileOutlined,
   EditOutlined,
   FolderViewOutlined,
-  BookOutlined,
   PropertySafetyOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
@@ -16,29 +15,53 @@ import ArticleScratch from './personal-comp/ArticleScratch.tsx';
 import ArticleNftList from './personal-comp/ArticleNftList.tsx';
 
 const { Content, Sider } = Layout;
-React.createElement(BookOutlined);
-React.createElement(EditOutlined);
-React.createElement(FolderViewOutlined);
-React.createElement(PoundOutlined);
-React.createElement(PropertySafetyOutlined);
-React.createElement(FolderViewOutlined);
 
 const menuItems = [
   {
     key: 'collectible',
     label: '藏品',
     items: [
-      { key: 'collectible-mint', label: '铸币', path: 'collectible-mint', icon: <PoundOutlined /> },
-      { key: 'collectible-browse', label: '浏览', path: 'collectible-browse', icon: <PropertySafetyOutlined /> },
+      {
+        key: 'collectible-mint',
+        label: '铸币',
+        path: 'collectible-mint',
+        icon: <PoundOutlined />,
+        element: <ImageNftMinter />,
+      },
+      {
+        key: 'collectible-browse',
+        label: '浏览',
+        path: 'collectible-browse',
+        icon: <PropertySafetyOutlined />,
+        element: <ImageNftList />,
+      },
     ],
   },
   {
     key: 'article',
     label: '文章',
     items: [
-      { key: 'article-write', label: '写文章', path: 'article-write', icon: <EditOutlined /> },
-      { key: 'article-scratch', label: '草稿', path: 'article-scratch', icon: <FileOutlined /> },
-      { key: 'article-browse', label: '浏览', path: 'article-browse', icon: <FolderViewOutlined /> },
+      {
+        key: 'article-write',
+        label: '写文章',
+        path: 'article-write',
+        icon: <EditOutlined />,
+        element: <ArticleEditor />,
+      },
+      {
+        key: 'article-scratch',
+        label: '草稿',
+        path: 'article-scratch',
+        icon: <FileOutlined />,
+        element: <ArticleScratch />,
+      },
+      {
+        key: 'article-browse',
+        label: '浏览',
+        path: 'article-browse',
+        icon: <FolderViewOutlined />,
+        element: <ArticleNftList />,
+      },
     ],
   },
 ];
@@ -82,13 +105,11 @@ export default function Personal() {
             minHeight: 280,
           }}
         >
-          <Routes>
-            <Route path='article-write' element={<ArticleEditor />} />
-            <Route path='article-scratch' element={<ArticleScratch />} />
-            <Route path='article-browse' element={<ArticleNftList />} />
-            <Route path='collectible-mint' element={<ImageNftMinter />} />
-            <Route path='collectible-browse' element={<ImageNftList />} />
-          </Routes>
+          <Routes
+            children={menuItems.map(item =>
+              item.items.map(child => <Route key={child.key} path={child.path} element={child.element} />)
+            )}
+          />
         </Content>
       </Layout>
     </Layout>

@@ -18,8 +18,9 @@
 ### 技术特色
 - **技术栈** - React 18 + TypeScript + Vite
 - **智能合约** - OpenZeppelin标准，Solidity 0.8.20
-- **存储方案** - IPFS + Arweave双存储架构
+- **存储方案** - IPFS快速访问 + Arweave永久保存，灵活切换
 - **开发框架** - Hardhat 3.0，自动化部署流程
+- **模块化架构**: 组件化设计，服务层封装，易于扩展维护
 
 ## 🏗️ 系统架构
 
@@ -40,12 +41,40 @@
 └─────────────────────────────────────┘
 ```
 
-### 核心模块
-- **🎨 NFT合约模块** - 基于ERC721标准的艺术品NFT合约
-- **💰 市场模块** - NFT展示、定价、交易功能
-- **📁 存储模块** - 元数据和作品文件的去中心化存储
-- **🔑 身份模块** - Web3钱包连接和身份验证
-- **📊 管理模块** - 个人作品集和交易历史管理
+### 🎯 核心功能模块
+
+#### 🎨 **内容创作模块**
+- **文章系统**: 富文本编辑器 + NFT铸造 + 草稿管理
+![](./docs/screenshots/写文章.png) 
+![](./docs/screenshots/文章草稿.png)
+![](./docs/screenshots/个人文章.png)
+![](./docs/screenshots/文章列表.png)
+- **图片NFT**: 文件上传 + 元数据管理 + 一键铸造
+![](./docs/screenshots/铸币.png)
+![](./docs/screenshots/个人藏品.png)
+![](./docs/screenshots/藏品列表.png)
+- **分类管理**: 书法、绘画、诗词等多类别支持
+
+#### 🏪 **NFT市场模块**
+- **市场浏览**: 分类筛选 + 搜索功能 + 网格展示
+- **作品展示**: 卡片式布局 + 元数据显示 + 所有者信息
+- **个人收藏**: 所有权验证 + 收藏管理 + 交易历史
+
+#### 🔐 **Web3身份模块**
+- **钱包连接**: MetaMask集成 + 多网络支持 + 状态管理
+- **身份验证**: 地址验证 + 签名认证 + 权限控制
+- **用户界面**: 连接状态显示 + 网络切换 + 错误处理
+
+#### 💾 **去中心化存储模块**
+- **双存储架构**: IPFS本地节点 + Arweave永久存储
+- **文件管理**: 图片上传 + 元数据构建 + URI生成
+- **存储服务**: 统一接口 + 自动切换 + 状态监控
+
+#### 🧪 **开发测试模块**
+- **合约测试**: 读写操作演示 + 事件监听 + 错误处理
+- **存储测试**: 双存储验证 + 钱包集成 + 本地挖矿
+![](./docs/screenshots/测试存储.png)
+- **调试工具**: 实时监控 + 日志输出 + 状态反馈
 
 ## 🚀 快速开始
 
@@ -156,6 +185,17 @@ artist-nft/
 │   └── Lock.sol        # 示例锁合约
 ├── src/                # 前端应用源码
 │   ├── components/     # React组件
+│   │   ├── TopLayout.tsx           # 应用顶层布局
+│   │   ├── Connect.tsx             # 钱包连接组件
+│   │   ├── Home.tsx                # 首页内容管理
+│   │   ├── NftMarket.tsx           # NFT市场界面
+│   │   ├── Personal.tsx            # 个人中心
+│   │   ├── TestContract.tsx        # 合约测试组件
+│   │   ├── TestStorage.tsx         # 存储测试组件
+│   │   ├── ArticleEditor.tsx       # 富文本编辑器
+│   │   ├── ArticleBrowser.tsx      # 文章浏览器
+│   │   ├── ImageNftMinter.tsx      # NFT铸造器
+│   │   └── NftCard.tsx             # NFT卡片组件
 │   ├── service/        # 业务逻辑服务
 │   ├── artifacts/      # 编译后的合约ABI
 │   └── typechain-types/# TypeScript类型定义
@@ -167,6 +207,40 @@ artist-nft/
 ├── dist/               # 构建输出目录
 └── node_modules/       # 项目依赖
 ```
+
+### 🏗️ 组件架构设计
+
+#### **顶层架构**
+- **TopLayout**: 统一导航框架，集成钱包连接状态
+- **路由管理**: React Router v6，支持嵌套路由和动态参数
+- **状态管理**: 组件级状态，服务层封装，Props传递
+
+#### **功能组件分层**
+```
+展示层 (Presentation)
+├── Ant Design组件库
+├── 自定义UI组件
+└── 响应式布局
+
+业务层 (Business Logic)
+├── NFT服务层
+├── 存储服务层
+├── 连接服务层
+└── 工具函数层
+
+数据层 (Data Access)
+├── Ethers.js合约交互
+├── IPFS/Arweave存储
+├── MetaMask钱包连接
+└── 本地存储管理
+```
+
+#### **核心组件特性**
+- **ArticleEditor**: Jodit富文本编辑器，支持草稿保存和NFT铸造
+- **NftCard**: 统一NFT展示卡片，支持图片和文章类型
+- **ImageNftMinter**: 完整的图片上传、预览、铸造流程
+- **ArticleBrowser**: 表格化文章NFT展示，支持模态框阅读
+- **Connect**: 极简钱包连接，状态自动管理
 
 ## 🔧 配置说明
 
