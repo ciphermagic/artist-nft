@@ -13,6 +13,7 @@ import ImageNftList from './personal-comp/ImageNftList.tsx';
 import ArticleEditor from './personal-comp/ArticleEditor.tsx';
 import ArticleScratch from './personal-comp/ArticleScratch.tsx';
 import ArticleNftList from './personal-comp/ArticleNftList.tsx';
+import RoyaltySettings from './personal-comp/RoyaltySettings.tsx';
 
 const { Content, Sider } = Layout;
 
@@ -61,6 +62,19 @@ const menuItems = [
         path: 'article-browse',
         icon: <FolderViewOutlined />,
         element: <ArticleNftList />,
+      },
+    ],
+  },
+  {
+    key: 'royalty',
+    label: '版税管理',
+    items: [
+      {
+        key: 'royalty-settings',
+        label: '版税设置',
+        path: 'royalty-settings',
+        icon: <PropertySafetyOutlined />,
+        element: <RoyaltySettings />,
       },
     ],
   },

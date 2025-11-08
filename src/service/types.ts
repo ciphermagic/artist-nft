@@ -7,6 +7,10 @@ export type Nft = {
   uri: string;
   type: string;
   owner?: string;
+  royaltyInfo?: {
+    receiver: string;
+    royaltyAmount: string;
+  };
 };
 
 export type NftMeta = {

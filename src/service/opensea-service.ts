@@ -44,7 +44,7 @@ const apiFetch = async <T>(url: string): Promise<T> => {
   if (!response.ok) {
     throw new Error(`API request failed: ${response.statusText}`);
   }
-  return response.json() as Promise<T>;
+  return (await response.json()) as Promise<T>;
 };
 
 export async function getCollectionStats(slug: string): Promise<CollectionStatsResponse> {

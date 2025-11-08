@@ -1,9 +1,11 @@
-import { Card } from 'antd';
+import { Card, Typography } from 'antd';
+import { formatEther } from 'ethers';
 import type { Nft } from '../../service/types';
 
 const { Meta } = Card;
+const { Text } = Typography;
 
-function NftCard({ nft, owner }: { nft: Nft; owner: boolean }) {
+function NftCard({ nft }: { nft: Nft }) {
   return (
     <Card
       style={{
@@ -15,19 +17,25 @@ function NftCard({ nft, owner }: { nft: Nft; owner: boolean }) {
       <Meta
         title={nft.name}
         description={
-          owner ? (
-            <div
-              style={{
-                whiteSpace: 'normal', // 允许换行
-                wordBreak: 'break-word', // 长词也换行
-                lineHeight: 1.5, // 可读性更好
-              }}
-            >
-              {nft.description + ' by ' + nft.owner}
-            </div>
-          ) : (
-            nft.description
-          )
+          <div>
+            <div>{nft.description}</div>
+            {nft.owner && (
+              <Text type='secondary'>
+                作者: {nft.owner.substring(0, 6)}...
+                {nft.owner.substring(nft.owner.length - 4)}
+              </Text>
+            )}
+            {nft.royaltyInfo && (
+              <div>
+                <Text type='secondary'>版税: {formatEther(nft.royaltyInfo.royaltyAmount)} ETH</Text>
+                <br />
+                <Text type='secondary'>
+                  收益人: {nft.royaltyInfo.receiver.substring(0, 6)}...
+                  {nft.royaltyInfo.receiver.substring(nft.royaltyInfo.receiver.length - 4)}
+                </Text>
+              </div>
+            )}
+          </div>
         }
       />
     </Card>

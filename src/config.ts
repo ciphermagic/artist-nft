@@ -13,10 +13,10 @@ type NetworkConfiguration = {
     blockExplorerUrls: string[];
   }[];
 };
-const confs: NetworkConfiguration[] = [
+const cfgList: NetworkConfiguration[] = [
   {
     chainId: 0x7a69,
-    nftAddress: '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9',
+    nftAddress: '0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82',
     params: [
       {
         chainId: '0x7A69',
@@ -49,10 +49,11 @@ const confs: NetworkConfiguration[] = [
     ],
   },
 ];
-export const configuration = () => confs[selection];
 const selection = 0;
+
+export const configuration = () => cfgList[selection];
 export const rpcUrl = () => {
-  return confs[selection].params[0].rpcUrls[0];
+  return cfgList[selection].params[0].rpcUrls[0];
 };
 export const IPFS = { domain: '127.0.0.1', url_prefix: 'http://127.0.0.1:8080/ipfs/' };
 export const ARWEAVE = { domain: '127.0.0.1', port: 1984, protocol: 'http', url_prefix: 'http://127.0.0.1:1984/' };

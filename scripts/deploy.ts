@@ -6,9 +6,9 @@ async function main() {
   const [deployer] = await ethers.getSigners();
   console.log('Deploying contracts with the account:', await deployer.getAddress());
   const contractFactory = await ethers.getContractFactory('ArtistNFT');
-  const contract = await contractFactory.deploy();
+  const contract = await contractFactory.deploy(deployer);
   await contract.waitForDeployment();
-  await await console.log('Contract deployed to:', await contract.getAddress());
+  console.log('Contract deployed to:', await contract.getAddress());
 }
 
 main()

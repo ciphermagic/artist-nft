@@ -2,11 +2,11 @@ import NftCard from './NftCard';
 import type { Nft } from '../../service/types';
 import styles from './NftBrowser.module.css';
 
-function NftBrowser({ nfts, owner }: { nfts: Nft[]; owner: boolean }) {
+function NftBrowser({ nfts }: { nfts: Nft[] }) {
   return (
     <div className={styles.main}>
       {nfts.map(nft => {
-        return <NftCard key={nft.tokenId} nft={nft} owner={owner} />;
+        return <NftCard key={nft.tokenId} nft={nft} />;
       })}
     </div>
   );

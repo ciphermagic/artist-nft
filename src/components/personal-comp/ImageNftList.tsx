@@ -25,7 +25,7 @@ function ImageNftList() {
   return (
     <div className='main'>
       <div style={{ marginBottom: '10px' }}>已铸造：{total}</div>
-      <NftBrowser nfts={nfts} owner={false} />
+      <NftBrowser nfts={nfts} />
     </div>
   );
 }

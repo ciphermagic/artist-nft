@@ -15,6 +15,7 @@ Artist NFT 是一个去中心化的数字艺术品交易平台，允许艺术家
 - **🏪 NFT交易市场** - 点对点的NFT买卖平台
 - **🌊 OpenSea集成** - 实时获取OpenSea交易市场数据
 - **🔍 市场浏览器** - 浏览热门NFT收藏集和实时统计
+- **💰 版税管理** - 完整的版税设置和资金提取功能
 - **🔐 去中心化存储** - 集成IPFS和Arweave存储方案
 - **💳 Web3钱包集成** - 支持MetaMask等主流钱包
 - **⚡ 现代化架构** - 基于Vite的开发体验
@@ -134,6 +135,7 @@ artist-nft/
 - **Connect**: 极简钱包连接，状态自动管理
 - **MarketBrowser**: OpenSea市场浏览器，展示热门收藏集和实时数据
 - **NftMarket**: OpenSea数据展示页面，支持收藏集搜索和NFT浏览
+- **RoyaltySettings**: 版税管理界面，支持版税设置和资金提取
 
 ### 🎯 核心功能模块
 
@@ -176,22 +178,26 @@ artist-nft/
 2. **上传作品** - 选择您的数字艺术品文件
 3. **设置元数据** - 添加作品标题、描述等信息
 4. **铸造NFT** - 一键将作品铸造为NFT
+   ![](./docs/screenshots/铸币.png)
 5. **管理作品** - 在个人中心查看和管理您的作品集
-![](./docs/screenshots/铸币.png)
-![](./docs/screenshots/个人藏品.png)
-![](./docs/screenshots/写文章.png)
-![](./docs/screenshots/文章草稿.png)
-![](./docs/screenshots/个人文章.png)
+   ![](./docs/screenshots/个人藏品.png)
 
 ### 🛒 对于收藏家
-1. **浏览市场** - 在NFT市场发现独特的数字艺术品
-![](./docs/screenshots/NFT市场.png)
-![](./docs/screenshots/搜索市场.png)
-2. **查看详情** - 了解作品信息和创作者背景
-3. **购买NFT** - 使用加密货币购买心仪的NFT
-4. **管理收藏** - 在个人中心展示您的NFT收藏
-![](./docs/screenshots/文章列表.png)
-![](./docs/screenshots/藏品列表.png)
+1. **浏览收藏** - 在藏品列表和文章列表查看所有NFT
+   ![](./docs/screenshots/文章列表.png)
+   ![](./docs/screenshots/藏品列表.png)
+2. **浏览市场** - 在NFT市场发现独特的数字艺术品
+   ![](./docs/screenshots/NFT市场.png)
+   ![](./docs/screenshots/搜索市场.png)
+3. **查看详情** - 了解作品信息和创作者背景
+4. **购买NFT** - 使用加密货币购买心仪的NFT
+
+### 💰 版税管理功能
+1. **版税设置** - 合约所有者可设置版税比例（如2%），确保艺术家在二级市场持续获益
+2. **费用管理** - 设置铸造费用和费用收集者地址，管理合约资金
+3. **资金提取** - 合约所有者可提取合约中的资金
+4. **实时查看** - 显示合约余额和可提取金额
+   ![](./docs/screenshots/版税管理.png)
 
 ## 🚀 快速开始
 

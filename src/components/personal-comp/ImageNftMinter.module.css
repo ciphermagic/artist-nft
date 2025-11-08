@@ -1,0 +1,265 @@
+.MinterWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+  min-height: 100vh;
+}
+
+.MinterContainer {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 800px;
+  gap: 1.5rem;
+}
+
+.Header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.Title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.Subtitle {
+  font-size: 1rem;
+  color: #718096;
+}
+
+.FormSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.FormGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.InputField {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+}
+
+.InputField:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  background: #ffffff;
+}
+
+.TextArea {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  min-height: 120px;
+  resize: vertical;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+}
+
+.TextArea:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  background: #ffffff;
+}
+
+.UploadPreviewContainer {
+  position: relative;
+  border-radius: 12px;
+  background: #f8fafc;
+  min-height: 300px;
+  border: 1px solid #e2e8f0;
+}
+
+.FileUpload {
+  position: relative;
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.FileUpload:hover {
+  border-color: #4299e1;
+  background: #f0f9ff;
+}
+
+.FileUploadIcon {
+  font-size: 2.5rem;
+  color: #a0aec0;
+  margin-bottom: 1rem;
+}
+
+.FileUploadText {
+  color: #718096;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.FileUploadHint {
+  color: #a0aec0;
+  font-size: 0.875rem;
+}
+
+.FileInput {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.PreviewContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: #f8fafc;
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.PreviewImage {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.PreviewOverlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.RemoveButton {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e53e3e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.RemoveButton:hover:not(:disabled) {
+  background: #fff5f5;
+  transform: scale(1.1);
+}
+
+.RemoveButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ActionSection {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.MintButton {
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+  min-width: 200px;
+}
+
+.MintButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+}
+
+.MintButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.LoadingSpinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .MinterWrapper {
+    padding: 1rem;
+  }
+
+  .MinterContainer {
+    padding: 1.5rem;
+  }
+
+  .Title {
+    font-size: 1.5rem;
+  }
+
+  .ActionSection {
+    flex-direction: column;
+  }
+}

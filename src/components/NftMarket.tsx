@@ -18,10 +18,11 @@ function NftMarket() {
     setLoading(true);
     setError(null);
     try {
+      const processedSlug = slug.replace(/\s+/g, '').toLowerCase();
       const [statsData, eventsData, nftsData] = await Promise.all([
-        getCollectionStats(slug),
-        getEventsByCollection(slug, { limit: 10 }),
-        getNFTsByCollection(slug, { limit: 10 }),
+        getCollectionStats(processedSlug),
+        getEventsByCollection(processedSlug, { limit: 10 }),
+        getNFTsByCollection(processedSlug, { limit: 10 }),
       ]);
       setStats(statsData);
       setEvents(eventsData);

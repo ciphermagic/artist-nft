@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
+import { formatEther } from 'ethers';
 import { ownedNftByType } from '../../service/nft-service';
 import type { Nft } from '../../service/types.ts';
 import { messageBox } from '../../service/message-service.ts';
 import axios, { type AxiosResponse } from 'axios';
 import ArticleViewerModal from '../common/ArticleViewerModal.tsx';
+
+const { Text } = Typography;
 
 function ArticleNftList() {
   const [articles, setArticles] = useState<Nft[]>([]);
@@ -16,18 +19,44 @@ function ArticleNftList() {
     {
       title: 'ID',
       dataIndex: 'tokenId',
-      width: 200,
+      width: 80,
       render: (id: string) => <div>{id}</div>,
     },
     {
       title: '标题',
       dataIndex: 'name',
-      width: 500,
+      width: 200,
       render: (text: string) => <div>{text}</div>,
     },
     {
+      title: '版税(ETH)',
+      dataIndex: 'royaltyInfo',
+      width: 100,
+      render: (royaltyInfo: Nft['royaltyInfo']) => (
+        <div>
+          {royaltyInfo ? <Text>{formatEther(royaltyInfo.royaltyAmount)}</Text> : <Text type='secondary'>N/A</Text>}
+        </div>
+      ),
+    },
+    {
+      title: '收益人',
+      dataIndex: 'royaltyInfo',
+      width: 120,
+      render: (royaltyInfo: Nft['royaltyInfo']) => (
+        <div>
+          {royaltyInfo ? (
+            <Text>
+              {royaltyInfo.receiver.substring(0, 6)}...{royaltyInfo.receiver.substring(royaltyInfo.receiver.length - 4)}
+            </Text>
+          ) : (
+            <Text type='secondary'>N/A</Text>
+          )}
+        </div>
+      ),
+    },
+    {
       title: '阅读',
-      width: 500,
+      width: 80,
       render: (record: Nft) => (
         <a
           href='#'
