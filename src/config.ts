@@ -62,3 +62,9 @@ export type StorageProvider = 'ipfs' | 'arweave';
 export const STORAGE_CONFIG = {
   provider: 'arweave' as StorageProvider,
 };
+
+// OpenSea API配置
+export const OPENSEA_CONFIG = {
+  apiKey: import.meta.env.VITE_OPENSEA_API_KEY || '',
+  baseUrl: 'https://api.opensea.io/api/v2',
+};

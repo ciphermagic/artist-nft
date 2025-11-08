@@ -8,21 +8,46 @@
 
 ## 🌟 项目概述
 
+Artist NFT 是一个去中心化的数字艺术品交易平台，允许艺术家将数字作品铸造为NFT并在开放市场上进行交易。平台集成了IPFS和Arweave双重存储方案，确保数字艺术品的永久保存和快速访问。
+
 ### 核心功能
 - **🖼️ 数字艺术品铸造** - 将数字作品转换为NFT
 - **🏪 NFT交易市场** - 点对点的NFT买卖平台
+- **🌊 OpenSea集成** - 实时获取OpenSea交易市场数据
+- **🔍 市场浏览器** - 浏览热门NFT收藏集和实时统计
 - **🔐 去中心化存储** - 集成IPFS和Arweave存储方案
 - **💳 Web3钱包集成** - 支持MetaMask等主流钱包
 - **⚡ 现代化架构** - 基于Vite的开发体验
 
-### 技术特色
-- **技术栈** - React 18 + TypeScript + Vite
-- **智能合约** - OpenZeppelin标准，Solidity 0.8.20
+### 技术特点
+- **前端技术栈** - React 18 + TypeScript + Vite + Ant Design
+- **智能合约** - Solidity 0.8.20 + OpenZeppelin标准实现
 - **存储方案** - IPFS快速访问 + Arweave永久保存，灵活切换
 - **开发框架** - Hardhat 3.0，自动化部署流程
-- **模块化架构**: 组件化设计，服务层封装，易于扩展维护
+- **第三方集成** - OpenSea API v2，实时市场数据获取
+- **测试覆盖** - 完整的智能合约测试和前端组件测试
+- **模块化架构** - 组件化设计，服务层封装，易于扩展维护
 
-## 🏗️ 系统架构
+## 📁 项目结构
+
+```
+artist-nft/
+├── contracts/          # 智能合约源码
+│   ├── ArtistNFT.sol   # 主要NFT合约
+│   └── Lock.sol        # 示例锁合约
+├── src/                # 前端应用源码
+│   ├── components/     # React组件
+│   ├── service/        # 业务逻辑服务
+│   ├── artifacts/      # 编译后的合约ABI
+│   └── typechain-types/# TypeScript类型定义
+├── test/               # 测试文件
+│   ├── ArtistNFT.ts    # NFT合约测试
+│   └── Lock.ts         # 锁合约测试
+├── scripts/            # 部署脚本
+├── cache/              # 编译缓存
+├── dist/               # 构建输出目录
+└── node_modules/       # 项目依赖
+```
 
 ### 技术栈分层
 ```
@@ -41,24 +66,60 @@
 └─────────────────────────────────────┘
 ```
 
+### 🏗️ 组件架构设计
+
+#### **顶层架构**
+- **TopLayout**: 统一导航框架，集成钱包连接状态
+- **路由管理**: React Router v6，支持嵌套路由和动态参数
+- **状态管理**: 组件级状态，服务层封装，Props传递
+
+#### **功能组件分层**
+```
+展示层 (Presentation)
+├── Ant Design组件库
+├── 自定义UI组件
+└── 响应式布局
+
+业务层 (Business Logic)
+├── NFT服务层
+├── 存储服务层
+├── 连接服务层
+└── 工具函数层
+
+数据层 (Data Access)
+├── Ethers.js合约交互
+├── IPFS/Arweave存储
+├── MetaMask钱包连接
+└── 本地存储管理
+```
+
+#### **核心组件特性**
+- **ArticleEditor**: Jodit富文本编辑器，支持草稿保存和NFT铸造
+- **NftCard**: 统一NFT展示卡片，支持图片和文章类型
+- **ImageNftMinter**: 完整的图片上传、预览、铸造流程
+- **ArticleBrowser**: 表格化文章NFT展示，支持模态框阅读
+- **Connect**: 极简钱包连接，状态自动管理
+- **MarketBrowser**: OpenSea市场浏览器，展示热门收藏集和实时数据
+- **NftMarket**: OpenSea数据展示页面，支持收藏集搜索和NFT浏览
+
 ### 🎯 核心功能模块
 
 #### 🎨 **内容创作模块**
 - **文章系统**: 富文本编辑器 + NFT铸造 + 草稿管理
-![](./docs/screenshots/写文章.png) 
-![](./docs/screenshots/文章草稿.png)
-![](./docs/screenshots/个人文章.png)
-![](./docs/screenshots/文章列表.png)
 - **图片NFT**: 文件上传 + 元数据管理 + 一键铸造
-![](./docs/screenshots/铸币.png)
-![](./docs/screenshots/个人藏品.png)
-![](./docs/screenshots/藏品列表.png)
 - **分类管理**: 书法、绘画、诗词等多类别支持
 
 #### 🏪 **NFT市场模块**
 - **市场浏览**: 分类筛选 + 搜索功能 + 网格展示
 - **作品展示**: 卡片式布局 + 元数据显示 + 所有者信息
 - **个人收藏**: 所有权验证 + 收藏管理 + 交易历史
+
+#### 🌊 **OpenSea集成模块**
+- **市场浏览器**: 实时展示OpenSea热门收藏集和统计数据
+- **收藏集统计**: 交易量、地板价、持有者数量等关键指标
+- **NFT浏览**: 按收藏集浏览NFT，支持分页和详情查看
+- **事件追踪**: 实时获取交易事件、铸造事件等活动数据
+- **搜索功能**: 支持按收藏集名称搜索和筛选
 
 #### 🔐 **Web3身份模块**
 - **钱包连接**: MetaMask集成 + 多网络支持 + 状态管理
@@ -73,8 +134,31 @@
 #### 🧪 **开发测试模块**
 - **合约测试**: 读写操作演示 + 事件监听 + 错误处理
 - **存储测试**: 双存储验证 + 钱包集成 + 本地挖矿
-![](./docs/screenshots/测试存储.png)
 - **调试工具**: 实时监控 + 日志输出 + 状态反馈
+
+## 🎯 核心功能演示
+
+### 🖼️ 对于艺术家
+1. **连接钱包** - 使用MetaMask连接您的数字钱包
+2. **上传作品** - 选择您的数字艺术品文件
+3. **设置元数据** - 添加作品标题、描述等信息
+4. **铸造NFT** - 一键将作品铸造为NFT
+5. **管理作品** - 在个人中心查看和管理您的作品集
+![](./docs/screenshots/铸币.png)
+![](./docs/screenshots/个人藏品.png)
+![](./docs/screenshots/写文章.png)
+![](./docs/screenshots/文章草稿.png)
+![](./docs/screenshots/个人文章.png)
+
+### 🛒 对于收藏家
+1. **浏览市场** - 在NFT市场发现独特的数字艺术品
+![](./docs/screenshots/NFT市场.png)
+![](./docs/screenshots/搜索市场.png)
+2. **查看详情** - 了解作品信息和创作者背景
+3. **购买NFT** - 使用加密货币购买心仪的NFT
+4. **管理收藏** - 在个人中心展示您的NFT收藏
+![](./docs/screenshots/文章列表.png)
+![](./docs/screenshots/藏品列表.png)
 
 ## 🚀 快速开始
 
@@ -129,21 +213,6 @@ npm run dev
 - 前端地址: http://localhost:5173
 - 区块链RPC: http://localhost:8545
 
-## 🎯 核心功能演示
-
-### 🖼️ 对于艺术家
-1. **连接钱包** - 使用MetaMask连接您的数字钱包
-2. **上传作品** - 选择您的数字艺术品文件
-3. **设置元数据** - 添加作品标题、描述、价格信息
-4. **铸造NFT** - 一键将作品铸造为NFT
-5. **管理作品** - 在个人中心查看和管理您的作品集
-
-### 🛒 对于收藏家
-1. **浏览市场** - 在NFT市场发现独特的数字艺术品
-2. **查看详情** - 了解作品信息和创作者背景
-3. **购买NFT** - 使用加密货币购买心仪的NFT
-4. **管理收藏** - 在个人中心展示您的NFT收藏
-
 ## 🧪 开发指南
 
 ### 测试覆盖
@@ -176,72 +245,6 @@ npm run build
 npm run preview
 ```
 
-## 📁 项目结构
-
-```
-artist-nft/
-├── contracts/          # 智能合约源码
-│   ├── ArtistNFT.sol   # 主要NFT合约
-│   └── Lock.sol        # 示例锁合约
-├── src/                # 前端应用源码
-│   ├── components/     # React组件
-│   │   ├── TopLayout.tsx           # 应用顶层布局
-│   │   ├── Connect.tsx             # 钱包连接组件
-│   │   ├── Home.tsx                # 首页内容管理
-│   │   ├── NftMarket.tsx           # NFT市场界面
-│   │   ├── Personal.tsx            # 个人中心
-│   │   ├── TestContract.tsx        # 合约测试组件
-│   │   ├── TestStorage.tsx         # 存储测试组件
-│   │   ├── ArticleEditor.tsx       # 富文本编辑器
-│   │   ├── ArticleBrowser.tsx      # 文章浏览器
-│   │   ├── ImageNftMinter.tsx      # NFT铸造器
-│   │   └── NftCard.tsx             # NFT卡片组件
-│   ├── service/        # 业务逻辑服务
-│   ├── artifacts/      # 编译后的合约ABI
-│   └── typechain-types/# TypeScript类型定义
-├── test/               # 测试文件
-│   ├── ArtistNFT.ts    # NFT合约测试
-│   └── Lock.ts         # 锁合约测试
-├── scripts/            # 部署脚本
-├── cache/              # 编译缓存
-├── dist/               # 构建输出目录
-└── node_modules/       # 项目依赖
-```
-
-### 🏗️ 组件架构设计
-
-#### **顶层架构**
-- **TopLayout**: 统一导航框架，集成钱包连接状态
-- **路由管理**: React Router v6，支持嵌套路由和动态参数
-- **状态管理**: 组件级状态，服务层封装，Props传递
-
-#### **功能组件分层**
-```
-展示层 (Presentation)
-├── Ant Design组件库
-├── 自定义UI组件
-└── 响应式布局
-
-业务层 (Business Logic)
-├── NFT服务层
-├── 存储服务层
-├── 连接服务层
-└── 工具函数层
-
-数据层 (Data Access)
-├── Ethers.js合约交互
-├── IPFS/Arweave存储
-├── MetaMask钱包连接
-└── 本地存储管理
-```
-
-#### **核心组件特性**
-- **ArticleEditor**: Jodit富文本编辑器，支持草稿保存和NFT铸造
-- **NftCard**: 统一NFT展示卡片，支持图片和文章类型
-- **ImageNftMinter**: 完整的图片上传、预览、铸造流程
-- **ArticleBrowser**: 表格化文章NFT展示，支持模态框阅读
-- **Connect**: 极简钱包连接，状态自动管理
-
 ## 🔧 配置说明
 
 ### 网络配置 (`src/config.ts`)
@@ -252,6 +255,11 @@ artist-nft/
 ### 存储配置
 - **IPFS**: 本地节点 `127.0.0.1:8080`
 - **Arweave**: 本地节点 `127.0.0.1:1984`
+
+### OpenSea API配置
+- **API密钥**: 在 `.env` 文件中设置 `VITE_OPENSEA_API_KEY`
+- **API端点**: `https://api.opensea.io/api/v2`
+- **支持功能**: 收藏集统计、NFT浏览、事件追踪、市场数据
 
 ## 🤝 贡献指南
 
@@ -320,6 +328,14 @@ taskkill /PID <进程ID> /F
 2. 删除node_modules后重试：`rm -rf node_modules && npm install`
 3. 检查Node.js版本是否符合要求（≥18.0.0）
 
+### OpenSea API数据获取失败
+**问题**: 无法获取OpenSea市场数据
+**解决**:
+1. 检查API密钥：确保 `.env` 文件中已正确设置 `VITE_OPENSEA_API_KEY`
+2. 网络连接：确认能够访问 `https://api.opensea.io`
+3. 收藏集slug：检查输入的收藏集名称是否正确，如 `boredapeyachtclub`
+4. API限制：注意OpenSea API的调用频率限制
+
 ## 📄 许可证
 
 本项目基于 [MIT License](LICENSE) 开源协议发布。
@@ -332,6 +348,7 @@ taskkill /PID <进程ID> /F
 - [Vite](https://vitejs.dev/) - 前端构建工具
 - [React](https://reactjs.org/) - 前端框架
 - [Ethers.js](https://docs.ethers.io/) - 以太坊交互库
+- [OpenSea](https://opensea.io/) - 全球最大NFT交易市场
 
 ---
 

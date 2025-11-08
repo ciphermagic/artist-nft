@@ -7,20 +7,29 @@ import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, Typed
   
 
   export interface ArtistNFTInterface extends Interface {
-    getFunction(nameOrSignature: "approve" | "balanceOf" | "getApproved" | "isApprovedForAll" | "mint" | "name" | "ownerOf" | "safeTransferFrom(address,address,uint256)" | "safeTransferFrom(address,address,uint256,bytes)" | "setApprovalForAll" | "supportsInterface" | "symbol" | "tokenByIndex" | "tokenOfOwnerByIndex" | "tokenURI" | "totalSupply" | "transferFrom"): FunctionFragment;
+    getFunction(nameOrSignature: "approve" | "balanceOf" | "feeCollector" | "feeRate" | "getApproved" | "isApprovedForAll" | "mint" | "name" | "owner" | "ownerOf" | "renounceOwnership" | "royaltyFraction" | "royaltyInfo" | "safeTransferFrom(address,address,uint256)" | "safeTransferFrom(address,address,uint256,bytes)" | "setApprovalForAll" | "setFeeCollector" | "setFeeRate" | "setFeeRoyaltyFraction" | "supportsInterface" | "symbol" | "tokenByIndex" | "tokenOfOwnerByIndex" | "tokenURI" | "totalSupply" | "transferFrom" | "transferOwnership" | "withdraw"): FunctionFragment;
 
-    getEvent(nameOrSignatureOrTopic: "Approval" | "ApprovalForAll" | "BatchMetadataUpdate" | "MetadataUpdate" | "Transfer"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "Approval" | "ApprovalForAll" | "BatchMetadataUpdate" | "MetadataUpdate" | "OwnershipTransferred" | "Transfer"): EventFragment;
 
     encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string;
 encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string;
+encodeFunctionData(functionFragment: 'feeCollector', values?: undefined): string;
+encodeFunctionData(functionFragment: 'feeRate', values?: undefined): string;
 encodeFunctionData(functionFragment: 'getApproved', values: [BigNumberish]): string;
 encodeFunctionData(functionFragment: 'isApprovedForAll', values: [AddressLike, AddressLike]): string;
 encodeFunctionData(functionFragment: 'mint', values: [AddressLike, string]): string;
 encodeFunctionData(functionFragment: 'name', values?: undefined): string;
+encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
 encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string;
+encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
+encodeFunctionData(functionFragment: 'royaltyFraction', values?: undefined): string;
+encodeFunctionData(functionFragment: 'royaltyInfo', values: [BigNumberish, BigNumberish]): string;
 encodeFunctionData(functionFragment: 'safeTransferFrom(address,address,uint256)', values: [AddressLike, AddressLike, BigNumberish]): string;
 encodeFunctionData(functionFragment: 'safeTransferFrom(address,address,uint256,bytes)', values: [AddressLike, AddressLike, BigNumberish, BytesLike]): string;
 encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string;
+encodeFunctionData(functionFragment: 'setFeeCollector', values: [AddressLike]): string;
+encodeFunctionData(functionFragment: 'setFeeRate', values: [BigNumberish]): string;
+encodeFunctionData(functionFragment: 'setFeeRoyaltyFraction', values: [BigNumberish]): string;
 encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
 encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
 encodeFunctionData(functionFragment: 'tokenByIndex', values: [BigNumberish]): string;
@@ -28,17 +37,28 @@ encodeFunctionData(functionFragment: 'tokenOfOwnerByIndex', values: [AddressLike
 encodeFunctionData(functionFragment: 'tokenURI', values: [BigNumberish]): string;
 encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string;
 encodeFunctionData(functionFragment: 'transferFrom', values: [AddressLike, AddressLike, BigNumberish]): string;
+encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string;
+encodeFunctionData(functionFragment: 'withdraw', values?: undefined): string;
 
     decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'feeCollector', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'feeRate', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'royaltyFraction', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'royaltyInfo', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256)', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256,bytes)', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'setFeeCollector', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'setFeeRate', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'setFeeRoyaltyFraction', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'tokenByIndex', data: BytesLike): Result;
@@ -46,6 +66,8 @@ decodeFunctionResult(functionFragment: 'tokenOfOwnerByIndex', data: BytesLike): 
 decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result;
   }
 
   
@@ -89,6 +111,18 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
       export type InputTuple = [_tokenId: BigNumberish];
       export type OutputTuple = [_tokenId: bigint];
       export interface OutputObject {_tokenId: bigint };
+      export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+      export type Filter = TypedDeferredTopicFilter<Event>
+      export type Log = TypedEventLog<Event>
+      export type LogDescription = TypedLogDescription<Event>
+    }
+
+  
+
+    export namespace OwnershipTransferredEvent {
+      export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
+      export type OutputTuple = [previousOwner: string, newOwner: string];
+      export interface OutputObject {previousOwner: string, newOwner: string };
       export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
       export type Filter = TypedDeferredTopicFilter<Event>
       export type Log = TypedEventLog<Event>
@@ -159,6 +193,22 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
     
 
     
+    feeCollector: TypedContractMethod<
+      [],
+      [string],
+      'view'
+    >
+    
+
+    
+    feeRate: TypedContractMethod<
+      [],
+      [bigint],
+      'view'
+    >
+    
+
+    
     getApproved: TypedContractMethod<
       [tokenId: BigNumberish, ],
       [string],
@@ -178,7 +228,7 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
     mint: TypedContractMethod<
       [artist: AddressLike, uri: string, ],
       [bigint],
-      'nonpayable'
+      'payable'
     >
     
 
@@ -191,9 +241,41 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
     
 
     
+    owner: TypedContractMethod<
+      [],
+      [string],
+      'view'
+    >
+    
+
+    
     ownerOf: TypedContractMethod<
       [tokenId: BigNumberish, ],
       [string],
+      'view'
+    >
+    
+
+    
+    renounceOwnership: TypedContractMethod<
+      [],
+      [void],
+      'nonpayable'
+    >
+    
+
+    
+    royaltyFraction: TypedContractMethod<
+      [],
+      [bigint],
+      'view'
+    >
+    
+
+    
+    royaltyInfo: TypedContractMethod<
+      [tokenId: BigNumberish, salePrice: BigNumberish, ],
+      [[string, bigint] & {receiver: string, amount: bigint }],
       'view'
     >
     
@@ -217,6 +299,30 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
     
     setApprovalForAll: TypedContractMethod<
       [operator: AddressLike, approved: boolean, ],
+      [void],
+      'nonpayable'
+    >
+    
+
+    
+    setFeeCollector: TypedContractMethod<
+      [fc: AddressLike, ],
+      [void],
+      'nonpayable'
+    >
+    
+
+    
+    setFeeRate: TypedContractMethod<
+      [fr: BigNumberish, ],
+      [void],
+      'nonpayable'
+    >
+    
+
+    
+    setFeeRoyaltyFraction: TypedContractMethod<
+      [rf: BigNumberish, ],
       [void],
       'nonpayable'
     >
@@ -278,6 +384,22 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
     >
     
 
+    
+    transferOwnership: TypedContractMethod<
+      [newOwner: AddressLike, ],
+      [void],
+      'nonpayable'
+    >
+    
+
+    
+    withdraw: TypedContractMethod<
+      [],
+      [void],
+      'nonpayable'
+    >
+    
+
 
     getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
@@ -288,6 +410,16 @@ decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
     >;
 getFunction(nameOrSignature: 'balanceOf'): TypedContractMethod<
       [owner: AddressLike, ],
+      [bigint],
+      'view'
+    >;
+getFunction(nameOrSignature: 'feeCollector'): TypedContractMethod<
+      [],
+      [string],
+      'view'
+    >;
+getFunction(nameOrSignature: 'feeRate'): TypedContractMethod<
+      [],
       [bigint],
       'view'
     >;
@@ -304,9 +436,14 @@ getFunction(nameOrSignature: 'isApprovedForAll'): TypedContractMethod<
 getFunction(nameOrSignature: 'mint'): TypedContractMethod<
       [artist: AddressLike, uri: string, ],
       [bigint],
-      'nonpayable'
+      'payable'
     >;
 getFunction(nameOrSignature: 'name'): TypedContractMethod<
+      [],
+      [string],
+      'view'
+    >;
+getFunction(nameOrSignature: 'owner'): TypedContractMethod<
       [],
       [string],
       'view'
@@ -314,6 +451,21 @@ getFunction(nameOrSignature: 'name'): TypedContractMethod<
 getFunction(nameOrSignature: 'ownerOf'): TypedContractMethod<
       [tokenId: BigNumberish, ],
       [string],
+      'view'
+    >;
+getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<
+      [],
+      [void],
+      'nonpayable'
+    >;
+getFunction(nameOrSignature: 'royaltyFraction'): TypedContractMethod<
+      [],
+      [bigint],
+      'view'
+    >;
+getFunction(nameOrSignature: 'royaltyInfo'): TypedContractMethod<
+      [tokenId: BigNumberish, salePrice: BigNumberish, ],
+      [[string, bigint] & {receiver: string, amount: bigint }],
       'view'
     >;
 getFunction(nameOrSignature: 'safeTransferFrom(address,address,uint256)'): TypedContractMethod<
@@ -328,6 +480,21 @@ getFunction(nameOrSignature: 'safeTransferFrom(address,address,uint256,bytes)'):
     >;
 getFunction(nameOrSignature: 'setApprovalForAll'): TypedContractMethod<
       [operator: AddressLike, approved: boolean, ],
+      [void],
+      'nonpayable'
+    >;
+getFunction(nameOrSignature: 'setFeeCollector'): TypedContractMethod<
+      [fc: AddressLike, ],
+      [void],
+      'nonpayable'
+    >;
+getFunction(nameOrSignature: 'setFeeRate'): TypedContractMethod<
+      [fr: BigNumberish, ],
+      [void],
+      'nonpayable'
+    >;
+getFunction(nameOrSignature: 'setFeeRoyaltyFraction'): TypedContractMethod<
+      [rf: BigNumberish, ],
       [void],
       'nonpayable'
     >;
@@ -366,11 +533,22 @@ getFunction(nameOrSignature: 'transferFrom'): TypedContractMethod<
       [void],
       'nonpayable'
     >;
+getFunction(nameOrSignature: 'transferOwnership'): TypedContractMethod<
+      [newOwner: AddressLike, ],
+      [void],
+      'nonpayable'
+    >;
+getFunction(nameOrSignature: 'withdraw'): TypedContractMethod<
+      [],
+      [void],
+      'nonpayable'
+    >;
 
     getEvent(key: 'Approval'): TypedContractEvent<ApprovalEvent.InputTuple, ApprovalEvent.OutputTuple, ApprovalEvent.OutputObject>;
 getEvent(key: 'ApprovalForAll'): TypedContractEvent<ApprovalForAllEvent.InputTuple, ApprovalForAllEvent.OutputTuple, ApprovalForAllEvent.OutputObject>;
 getEvent(key: 'BatchMetadataUpdate'): TypedContractEvent<BatchMetadataUpdateEvent.InputTuple, BatchMetadataUpdateEvent.OutputTuple, BatchMetadataUpdateEvent.OutputObject>;
 getEvent(key: 'MetadataUpdate'): TypedContractEvent<MetadataUpdateEvent.InputTuple, MetadataUpdateEvent.OutputTuple, MetadataUpdateEvent.OutputObject>;
+getEvent(key: 'OwnershipTransferred'): TypedContractEvent<OwnershipTransferredEvent.InputTuple, OwnershipTransferredEvent.OutputTuple, OwnershipTransferredEvent.OutputObject>;
 getEvent(key: 'Transfer'): TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
 
     filters: {
@@ -389,6 +567,10 @@ getEvent(key: 'Transfer'): TypedContractEvent<TransferEvent.InputTuple, Transfer
 
       'MetadataUpdate(uint256)': TypedContractEvent<MetadataUpdateEvent.InputTuple, MetadataUpdateEvent.OutputTuple, MetadataUpdateEvent.OutputObject>;
       MetadataUpdate: TypedContractEvent<MetadataUpdateEvent.InputTuple, MetadataUpdateEvent.OutputTuple, MetadataUpdateEvent.OutputObject>;
+    
+
+      'OwnershipTransferred(address,address)': TypedContractEvent<OwnershipTransferredEvent.InputTuple, OwnershipTransferredEvent.OutputTuple, OwnershipTransferredEvent.OutputObject>;
+      OwnershipTransferred: TypedContractEvent<OwnershipTransferredEvent.InputTuple, OwnershipTransferredEvent.OutputTuple, OwnershipTransferredEvent.OutputObject>;
     
 
       'Transfer(address,address,uint256)': TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;

@@ -7,7 +7,7 @@ describe('ArtistNFT', function () {
   async function deployNftFixture() {
     const [owner, artist, other] = await ethers.getSigners();
     const contractFactory = await ethers.getContractFactory('ArtistNFT');
-    const contract = await contractFactory.deploy();
+    const contract = await contractFactory.deploy(owner.address);
     return { contract, owner, artist, other };
   }
 
@@ -17,7 +17,8 @@ describe('ArtistNFT', function () {
       const artistAddr = await artist.getAddress();
       const tokenUri = 'https://example.com/token/1';
 
-      await expect(contract.mint(artistAddr, tokenUri))
+      // 铸造需要支付费用（1 gwei）
+      await expect(contract.mint(artistAddr, tokenUri, { value: ethers.parseEther('0.000000001') }))
         .to.emit(contract, 'Transfer')
         .withArgs(ethers.ZeroAddress, artistAddr, 0);
     });
@@ -27,7 +28,7 @@ describe('ArtistNFT', function () {
       const artistAddr = await artist.getAddress();
       const tokenUri = 'https://example.com/token/1';
 
-      await contract.mint(artistAddr, tokenUri);
+      await contract.mint(artistAddr, tokenUri, { value: ethers.parseEther('0.000000001') });
       expect(await contract.tokenURI(0)).to.equal(tokenUri);
     });
 
@@ -35,8 +36,8 @@ describe('ArtistNFT', function () {
       const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
       const artistAddr = await artist.getAddress();
 
-      await contract.mint(artistAddr, 'https://example.com/token/1');
-      await contract.mint(artistAddr, 'https://example.com/token/2');
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(artistAddr, 'https://example.com/token/2', { value: ethers.parseEther('0.000000001') });
 
       expect(await contract.balanceOf(artistAddr)).to.equal(2);
     });
@@ -45,7 +46,7 @@ describe('ArtistNFT', function () {
       const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
       const artistAddr = await artist.getAddress();
 
-      await contract.mint(artistAddr, 'https://example.com/token/1');
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
 
       expect(await contract.ownerOf(0)).to.equal(artistAddr);
     });
@@ -58,9 +59,9 @@ describe('ArtistNFT', function () {
       const otherAddr = await other.getAddress();
 
       // 铸造多个NFT
-      await contract.mint(artistAddr, 'https://example.com/token/1');
-      await contract.mint(artistAddr, 'https://example.com/token/2');
-      await contract.mint(otherAddr, 'https://example.com/token/3');
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(artistAddr, 'https://example.com/token/2', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(otherAddr, 'https://example.com/token/3', { value: ethers.parseEther('0.000000001') });
 
       // 验证tokenId递增
       expect(await contract.ownerOf(0)).to.equal(artistAddr);
@@ -82,10 +83,10 @@ describe('ArtistNFT', function () {
       const otherAddr = await other.getAddress();
 
       // 为不同用户铸造NFT
-      await contract.mint(ownerAddr, 'https://example.com/owner/1');
-      await contract.mint(artistAddr, 'https://example.com/artist/1');
-      await contract.mint(otherAddr, 'https://example.com/other/1');
-      await contract.mint(artistAddr, 'https://example.com/artist/2');
+      await contract.mint(ownerAddr, 'https://example.com/owner/1', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(artistAddr, 'https://example.com/artist/1', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(otherAddr, 'https://example.com/other/1', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(artistAddr, 'https://example.com/artist/2', { value: ethers.parseEther('0.000000001') });
 
       // 验证各用户余额
       expect(await contract.balanceOf(ownerAddr)).to.equal(1);
@@ -106,9 +107,9 @@ describe('ArtistNFT', function () {
       const artistAddr = await artist.getAddress();
 
       // 铸造多个NFT
-      await contract.mint(artistAddr, 'https://example.com/token/1');
-      await contract.mint(artistAddr, 'https://example.com/token/2');
-      await contract.mint(artistAddr, 'https://example.com/token/3');
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(artistAddr, 'https://example.com/token/2', { value: ethers.parseEther('0.000000001') });
+      await contract.mint(artistAddr, 'https://example.com/token/3', { value: ethers.parseEther('0.000000001') });
 
       // 测试tokenByIndex
       expect(await contract.tokenByIndex(0)).to.equal(0);
@@ -128,13 +129,13 @@ describe('ArtistNFT', function () {
 
       expect(await contract.totalSupply()).to.equal(0);
 
-      await contract.mint(artistAddr, 'https://example.com/token/1');
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
       expect(await contract.totalSupply()).to.equal(1);
 
-      await contract.mint(artistAddr, 'https://example.com/token/2');
+      await contract.mint(artistAddr, 'https://example.com/token/2', { value: ethers.parseEther('0.000000001') });
       expect(await contract.totalSupply()).to.equal(2);
 
-      await contract.mint(otherAddr, 'https://example.com/token/3');
+      await contract.mint(otherAddr, 'https://example.com/token/3', { value: ethers.parseEther('0.000000001') });
       expect(await contract.totalSupply()).to.equal(3);
     });
   });
@@ -144,7 +145,7 @@ describe('ArtistNFT', function () {
       const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
       const artistAddr = await artist.getAddress();
 
-      await contract.mint(artistAddr, '');
+      await contract.mint(artistAddr, '', { value: ethers.parseEther('0.000000001') });
       expect(await contract.tokenURI(0)).to.equal('');
     });
 
@@ -153,7 +154,7 @@ describe('ArtistNFT', function () {
       const artistAddr = await artist.getAddress();
       const longUri = 'https://example.com/token/' + 'a'.repeat(200);
 
-      await contract.mint(artistAddr, longUri);
+      await contract.mint(artistAddr, longUri, { value: ethers.parseEther('0.000000001') });
       expect(await contract.tokenURI(0)).to.equal(longUri);
     });
   });
@@ -202,6 +203,114 @@ describe('ArtistNFT', function () {
       // ERC721Metadata接口ID
       const erc721MetadataInterfaceId = '0x5b5e139f';
       expect(await contract.supportsInterface(erc721MetadataInterfaceId)).to.equal(true);
+    });
+
+    it('应该支持ERC2981版税接口', async function () {
+      const { contract } = await networkHelpers.loadFixture(deployNftFixture);
+
+      // ERC2981接口ID
+      const erc2981InterfaceId = '0x2a55205a';
+      expect(await contract.supportsInterface(erc2981InterfaceId)).to.equal(true);
+    });
+  });
+
+  describe('版税功能测试', function () {
+    it('应该正确设置和获取版税信息', async function () {
+      const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
+      const artistAddr = await artist.getAddress();
+      const tokenUri = 'https://example.com/token/1';
+
+      // 铸造NFT
+      await contract.mint(artistAddr, tokenUri, { value: ethers.parseEther('0.000000001') });
+
+      // 获取版税信息
+      const [receiver, royaltyAmount] = await contract.royaltyInfo(0, ethers.parseEther('1'));
+
+      expect(receiver).to.equal(artistAddr);
+      // 版税比例是200 = 2%，所以1 ETH的2%是0.02 ETH
+      expect(royaltyAmount).to.equal(ethers.parseEther('0.02'));
+    });
+
+    it('应该允许所有者修改版税比例', async function () {
+      const { contract } = await networkHelpers.loadFixture(deployNftFixture);
+
+      // 修改版税比例为5% (500)
+      await contract.setFeeRoyaltyFraction(500);
+
+      expect(await contract.royaltyFraction()).to.equal(500);
+    });
+
+    it('应该阻止非所有者修改版税比例', async function () {
+      const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
+
+      // 非所有者尝试修改版税比例应该失败
+      await expect(contract.connect(artist).setFeeRoyaltyFraction(500)).to.revert(ethers);
+    });
+  });
+
+  describe('费用管理功能测试', function () {
+    it('应该正确设置费用率', async function () {
+      const { contract } = await networkHelpers.loadFixture(deployNftFixture);
+
+      const newFeeRate = ethers.parseEther('0.000000002'); // 2 gwei
+      await contract.setFeeRate(newFeeRate);
+
+      expect(await contract.feeRate()).to.equal(newFeeRate);
+    });
+
+    it('应该正确设置费用收集者', async function () {
+      const { contract, other } = await networkHelpers.loadFixture(deployNftFixture);
+      const otherAddr = await other.getAddress();
+
+      await contract.setFeeCollector(otherAddr);
+
+      expect(await contract.feeCollector()).to.equal(otherAddr);
+    });
+
+    it('应该允许费用收集者提取费用', async function () {
+      const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
+      const artistAddr = await artist.getAddress();
+
+      // 先铸造一个NFT来积累费用
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
+
+      // 检查合约余额
+      const contractBalance = await ethers.provider.getBalance(contract.target);
+      expect(contractBalance).to.equal(ethers.parseEther('0.000000001'));
+
+      // 提取费用
+      const tx = await contract.withdraw();
+      await tx.wait();
+
+      // 检查合约余额是否清零
+      const newContractBalance = await ethers.provider.getBalance(contract.target);
+      expect(newContractBalance).to.equal(0);
+    });
+
+    it('应该阻止非费用收集者提取费用', async function () {
+      const { contract, artist, other } = await networkHelpers.loadFixture(deployNftFixture);
+      const artistAddr = await artist.getAddress();
+
+      // 先铸造一个NFT来积累费用
+      await contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') });
+
+      // 非费用收集者尝试提取应该失败
+      await expect(contract.connect(other).withdraw()).to.revert(ethers);
+    });
+
+    it('应该正确验证支付的费用', async function () {
+      const { contract, artist } = await networkHelpers.loadFixture(deployNftFixture);
+      const artistAddr = await artist.getAddress();
+
+      // 支付不足的费用应该失败
+      await expect(
+        contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.0000000005') }),
+      ).to.revert(ethers);
+
+      // 支付足够的费用应该成功
+      await expect(
+        contract.mint(artistAddr, 'https://example.com/token/1', { value: ethers.parseEther('0.000000001') }),
+      ).to.emit(contract, 'Transfer');
     });
   });
 });

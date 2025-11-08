@@ -15,7 +15,7 @@ export interface Lock$Type {
   readonly deployedLinkReferences: {};
   readonly immutableReferences: {};
   readonly inputSourceName: "project/contracts/Lock.sol";
-  readonly buildInfoId: "solc-0_8_28-3935a9499b9b394b1dab1e0e74d6e14df554de0d";
+  readonly buildInfoId: "solc-0_8_28-56e107e8798266b545690cbbc71fd360fd7e0d89";
 };
 
 import "hardhat/types/artifacts";
