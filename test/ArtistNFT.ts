@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 import { network } from 'hardhat';
+import { type ArtistNFT, ArtistNFT__factory } from '../src/typechain-types/index.ts';
 
 const { ethers, networkHelpers } = await network.connect();
 
 describe('ArtistNFT', function () {
   async function deployNftFixture() {
     const [owner, artist, other] = await ethers.getSigners();
-    const contractFactory = await ethers.getContractFactory('ArtistNFT');
-    const contract = await contractFactory.deploy(owner.address);
+    const contractFactory = (await ethers.getContractFactory('ArtistNFT')) as unknown as ArtistNFT__factory;
+    const contract = (await contractFactory.deploy(owner.address)) as ArtistNFT;
     return { contract, owner, artist, other };
   }
 
