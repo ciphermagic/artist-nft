@@ -409,6 +409,8 @@ npx hardhat node
 
 #### 2. 存储节点配置（可选）
 
+##### IPFS配置
+
 ```bash
 # 安装并启动IPFS
 npm install -g ipfs
@@ -417,6 +419,28 @@ ipfs daemon
 
 # 验证IPFS状态
 curl http://127.0.0.1:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
+```
+
+##### Arweave配置
+
+```bash
+docker run -d \
+  --name arweave-local \
+  -p 1984:1984 \
+  -v $(pwd)/arweave-data:/data \
+  arweave/deploy:latest
+
+# 生成钱包并充值
+docker exec -it arweave-local arweave wallet create > wallet.json
+WALLET_ADDR=$(jq -r .address wallet.json)
+docker exec -it arweave-local arweave wallet mint 1000 $WALLET_ADDR
+
+# 验证
+curl http://127.0.0.1:1984/info
+curl http://127.0.0.1:1984/wallet/$WALLET_ADDR/balance
+
+# 停止 / 删除
+docker stop arweave-local && docker rm arweave-local
 ```
 
 #### 3. OpenSea API配置
