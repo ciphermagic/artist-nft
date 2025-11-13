@@ -5,7 +5,7 @@ import styles from './NftBrowser.module.css';
 function NftBrowser({ nfts }: { nfts: Nft[] }) {
   return (
     <div className={styles.main}>
-      {nfts.map(nft => {
+      {nfts.map((nft: Nft) => {
         return <NftCard key={nft.tokenId} nft={nft} />;
       })}
     </div>
