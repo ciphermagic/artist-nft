@@ -2,5 +2,6 @@
 // @ts-nocheck
 /* tslint:disable */
 /* eslint-disable */
+export { ArtistCoin__factory } from './ArtistCoin__factory.js';
 export { ArtistNFT__factory } from './ArtistNFT__factory.js';
 export { Lock__factory } from './Lock__factory.js';

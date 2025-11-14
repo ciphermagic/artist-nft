@@ -11,16 +11,20 @@ import * as Contracts from "./index.js";
 
 declare module "@nomicfoundation/hardhat-ethers/types" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
-  getContractFactory(name: 'ArtistNFT', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.ArtistNFT__factory>
+  getContractFactory(name: 'ArtistCoin', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.ArtistCoin__factory>
+getContractFactory(name: 'ArtistNFT', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.ArtistNFT__factory>
 getContractFactory(name: 'Lock', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.Lock__factory>
 
-  getContractAt(name: 'ArtistNFT', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.ArtistNFT>
+  getContractAt(name: 'ArtistCoin', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.ArtistCoin>
+getContractAt(name: 'ArtistNFT', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.ArtistNFT>
 getContractAt(name: 'Lock', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.Lock>
 
-  deployContract(name: 'ArtistNFT', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ArtistNFT>
+  deployContract(name: 'ArtistCoin', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ArtistCoin>
+deployContract(name: 'ArtistNFT', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ArtistNFT>
 deployContract(name: 'Lock', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Lock>
 
-  deployContract(name: 'ArtistNFT', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ArtistNFT>
+  deployContract(name: 'ArtistCoin', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ArtistCoin>
+deployContract(name: 'ArtistNFT', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ArtistNFT>
 deployContract(name: 'Lock', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Lock>
 
     // default types

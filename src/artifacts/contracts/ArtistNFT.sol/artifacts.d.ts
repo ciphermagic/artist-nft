@@ -15,7 +15,7 @@ export interface ArtistNFT$Type {
   readonly deployedLinkReferences: {};
   readonly immutableReferences: {};
   readonly inputSourceName: "project/contracts/ArtistNFT.sol";
-  readonly buildInfoId: "solc-0_8_28-56e107e8798266b545690cbbc71fd360fd7e0d89";
+  readonly buildInfoId: "solc-0_8_28-d25b35def94dd9ac4b297eccd59c6b4bf62585f5";
 };
 
 import "hardhat/types/artifacts";

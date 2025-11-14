@@ -2,8 +2,10 @@
 // @ts-nocheck
 /* tslint:disable */
 /* eslint-disable */
+export type { ArtistCoin } from './ArtistCoin.js';
 export type { ArtistNFT } from './ArtistNFT.js';
 export type { Lock } from './Lock.js';
 export * as factories from './factories/index.js';
+export { ArtistCoin__factory } from './factories/ArtistCoin__factory.js';
 export { ArtistNFT__factory } from './factories/ArtistNFT__factory.js';
 export { Lock__factory } from './factories/Lock__factory.js';

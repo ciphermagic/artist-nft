@@ -53,7 +53,10 @@ contract ArtistCoin is ERC20, Ownable, ReentrancyGuard {
         _;
     }
 
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) {}
+    constructor(string memory name, string memory symbol)
+    ERC20(name, symbol)
+    Ownable(msg.sender){
+    }
 
     // @dev 当ether转入此合约时分配股息。
     receive() external payable {
@@ -140,37 +143,20 @@ contract ArtistCoin is ERC20, Ownable, ReentrancyGuard {
         return uint256(x) / magnitude;
     }
 
-    // @dev 在地址间转移代币的内部函数。
-    // 更新 magnifiedDividendCorrections 以保持股息不变。
+    // @dev 更新代币余额并处理股息校正
     // @param from 转出地址。
     // @param to 转入地址。
     // @param value 转移数量。
-    function _transfer(address from, address to, uint256 value) internal override {
-        super._transfer(from, to, value);
-        int256 _magCorrection = int256(magnifiedDividendPerShare * (value));
-        magnifiedDividendCorrections[from] += _magCorrection;
-        magnifiedDividendCorrections[to] -= _magCorrection;
+    function _update(address from, address to, uint256 value) internal virtual override {
+        super._update(from, to, value);
+        if (from != address(0)) {
+            int256 _magCorrection = int256(magnifiedDividendPerShare * value);
+            magnifiedDividendCorrections[from] += _magCorrection;
+        }
+        if (to != address(0)) {
+            int256 _magCorrection = int256(magnifiedDividendPerShare * value);
+            magnifiedDividendCorrections[to] -= _magCorrection;
+        }
     }
 
-    // @dev 向账户铸造代币的内部函数。
-    // 更新 magnifiedDividendCorrections 以保持股息不变。
-    // @param account 将收到代币的账户。
-    // @param value 将被铸造的数量。
-    function _mint(address account, uint256 value) internal override {
-        super._mint(account, value);
-        magnifiedDividendCorrections[account] -= int256(
-            magnifiedDividendPerShare * value
-        );
-    }
-
-    // @dev 销毁给定账户代币的内部函数。
-    // 更新 magnifiedDividendCorrections 以保持股息不变。
-    // @param account 将被销毁代币的账户。
-    // @param value 将被销毁的数量。
-    function _burn(address account, uint256 value) internal override {
-        super._burn(account, value);
-        magnifiedDividendCorrections[account] += int256(
-            magnifiedDividendPerShare * value
-        );
-    }
 }
